@@ -1,0 +1,21 @@
+timestamp,service,level,message,incident_id,category
+7 08:09:11,udev,INFO,removing device node '/udev/vcsa2',E89,Linux
+10 16:01:48,sshd(pam_unix),INFO,authentication failure; logname= uid=0 euid=0 tty=NODEVssh ruser= rhost=150.183.249.110  user=root,E18,Linux
+2016-09-28 04:30:32,CBS,INFO,Expecting attribute name [HRESULT = 0x800f080d - CBS_E_MANIFEST_INVALID_ITEM],E18,Windows
+26 05:47:42,ftpd,INFO,connection from 172.181.208.156 () at Tue Jul 26 05:47:42 2005,E29,Linux
+2016-09-28 04:30:31,CBS,INFO,Expecting attribute name [HRESULT = 0x800f080d - CBS_E_MANIFEST_INVALID_ITEM],E18,Windows
+03-17 16:15:58.282,DisplayPowerController,INFO,HBM brightnessOut =38,E65,Android
+2016-09-28 04:30:43,CBS,INFO,Session: 30546174_91592245 initialized by client WindowsUpdateAgent.,E36,Windows
+03-17 16:15:39.598,PanelView,INFO,instantCollapse,E66,Android
+81110 2337,dfs.DataBlockScanner,INFO,Verification succeeded for blk_-1547954353065580372,E14,HDFS
+17/06/09 20:11:09,storage.BlockManager,INFO,Found block rdd_42_21 locally,E10,Spark
+Mon Dec 05 10:26:26 2005,Apache,INFO,jk2_init() Found child 5385 in scoreboard slot 8,E1,Apache
+17/06/09 20:11:10,executor.CoarseGrainedExecutorBackend,INFO,Got assigned task 1301,E11,Spark
+81110 145452,dfs.DataNode$PacketResponder,INFO,Received block blk_560063894682806537 of size 67108864 from /10.251.194.129,E11,HDFS
+17/06/09 20:10:55,executor.Executor,INFO,Running task 1.0 in stage 18.0 (TID 736),E24,Spark
+17/06/09 20:10:46,storage.MemoryStore,INFO,"Block broadcast_8_piece0 stored as bytes in memory (estimated size 21.4 KB, free 35.4 KB)",E2,Spark
+81111 85059,dfs.FSNamesystem,INFO,BLOCK* NameSystem.allocateBlock: /user/root/rand7/_temporary/_task_200811101024_0014_m_001642_0/part-01642. blk_8215843708467112607,E7,HDFS
+Mon Dec 05 10:28:44 2005,Apache,ERROR,[client 198.232.168.9] Directory index forbidden by rule: /var/www/html/,E4,Apache
+17/06/09 20:11:08,spark.CacheManager,INFO,"Partition rdd_42_23 not found, computing it",E19,Spark
+1104070308,boot_cmd,INFO,Targeting domains:node-D[0\ 5] and nodes:node-[27\ 191],E43,HPC
+4 12:52:44,ftpd,INFO,connection from 63.197.98.106 (adsl-63-197-98-106.dsl.mtry01.pacbell.net) at Mon Jul  4 12:52:44 2005,E29,Linux
