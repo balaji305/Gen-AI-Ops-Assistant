@@ -21,6 +21,7 @@ venv/
 .idea/
 .vscode/
 *.swp
+*.env
 
 # -----------------------
 # Data & Artifacts
