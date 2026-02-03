@@ -1,11 +1,7 @@
-# File: kg/query_kg.py
-
 from neo4j import GraphDatabase
 import os
 from dotenv import load_dotenv
-import pandas as pd
 
-# ---------- Load Env ----------
 load_dotenv()
 
 NEO4J_URI = os.getenv("NEO4J_URI")
@@ -17,49 +13,45 @@ driver = GraphDatabase.driver(
     auth=(NEO4J_USERNAME, NEO4J_PASSWORD)
 )
 
-# ---------- Helper ----------
-def run_query(query: str, params: dict | None = None) -> pd.DataFrame:
+
+def run_query(cypher: str, params: dict = None):
     with driver.session() as session:
-        result = session.run(query, params or {})
-        return pd.DataFrame(result.data())
+        result = session.run(cypher, params or {})
+        return [record.data() for record in result]
 
-# ---------- Queries ----------
-def count_nodes():
-    query = """
-    MATCH (n)
-    RETURN labels(n)[0] AS label, count(*) AS count
-    """
-    return run_query(query)
 
-def last_incidents(limit: int = 5):
-    query = """
-    MATCH (s:Service)-[:OCCURS_ON]->(i:Incident)
-    RETURN s.name AS service,
-           i.incident_id AS incident_id,
+def recent_incidents(service: str, limit: int = 10):
+    cypher = """
+    MATCH (s:Service {name: $service})-[:OCCURS_ON]->(i:Incident)
+    RETURN i.incident_id AS incident_id,
            i.level AS level,
            i.message AS message,
            i.timestamp AS timestamp
     ORDER BY i.timestamp DESC
     LIMIT $limit
     """
-    return run_query(query, {"limit": limit})
+    return run_query(cypher, {"service": service, "limit": limit})
+
 
 def error_count_per_service():
-    query = """
+    cypher = """
     MATCH (s:Service)-[:OCCURS_ON]->(i:Incident)
-    WHERE i.level IN ['ERROR', 'FATAL']
+    WHERE toUpper(i.level) IN ['ERROR', 'ERR', 'E']
     RETURN s.name AS service, count(i) AS error_count
     ORDER BY error_count DESC
     """
-    return run_query(query)
+    return run_query(cypher)
 
-# ---------- Main ----------
-if __name__ == "__main__":
-    print("Node counts by label:")
-    print(count_nodes())
 
-    print("\nLast incidents:")
-    print(last_incidents(5))
-
-    print("\nError count per service:")
-    print(error_count_per_service())
+def incidents_with_dependencies(service: str, limit: int = 20):
+    cypher = """
+    MATCH (s:Service {name: $service})-[:DEPENDS_ON*0..1]->(dep:Service)
+          -[:OCCURS_ON]->(i:Incident)
+    RETURN dep.name AS service,
+           i.level AS level,
+           i.message AS message,
+           i.timestamp AS timestamp
+    ORDER BY i.timestamp DESC
+    LIMIT $limit
+    """
+    return run_query(cypher, {"service": service, "limit": limit})
